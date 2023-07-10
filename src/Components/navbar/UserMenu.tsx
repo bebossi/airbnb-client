@@ -1,18 +1,32 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "../../Hooks/useRegisterModal";
 import useLoginModal from "../../Hooks/useLoginModal";
+import { User } from "../../interfaces/UserInterface";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: User
+}
 
+const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
   const registerModal = useRegisterModal()
   const loginModal = useLoginModal()
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const handleLogout = () => {
+    document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    currentUser === null
+  };
+
+  useEffect(() => {
+  }, [currentUser])
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -35,10 +49,24 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            <>
+            {currentUser ? (
+              <>
+              <MenuItem onClick={() => {}} label="My trips" />
+              <MenuItem onClick={() => {}} label="My favorites" />
+              <MenuItem onClick={() => {}} label="My reservations" />
+              <MenuItem onClick={() => {}} label="My properties" />
+              <hr/>
+              <MenuItem onClick={handleLogout} label="Logout" />
+
+            </>
+
+            ) : (
+              <>
               <MenuItem onClick={loginModal.onOpen} label="Login" />
               <MenuItem onClick={registerModal.onOpen} label="Sign Up" />
             </>
+            )}
+           
           </div>
         </div>
       )}

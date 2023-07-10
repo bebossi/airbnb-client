@@ -18,7 +18,7 @@ const LoginModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal()
   const [isLoading, setIsLoading] = useState(false);
-  const { setLoggedInUser } = useContext(AuthContext);
+  const { setUser ,setLoggedInUser } = useContext(AuthContext);
 
   const {
     register,
@@ -32,14 +32,20 @@ const LoginModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-   const response = await api.post("/login", data)
-    setIsLoading(true);
-    const token = response.data.token;
-    document.cookie = `Bearer=${token}; path=/;`;
-    setLoggedInUser(token);
-    loginModal.onClose()
-    navigate("/")
-    toast.success("Logged in")
+    try{
+
+      const response = await api.post("/login", data)
+       setIsLoading(true);
+       const token = response.data.token;
+       document.cookie = `Bearer=${token}; path=/;`;
+       setLoggedInUser(token);
+       setUser(response.data)
+       loginModal.onClose()
+       navigate("/")
+       toast.success("Logged in")
+    } catch(err){
+      console.log(err);
+    }
   };
 
   const bodyContent = (
