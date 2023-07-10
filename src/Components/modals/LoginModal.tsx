@@ -1,6 +1,6 @@
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "../../Hooks/useRegisterModal";
 import Modal from "./Modal";
@@ -8,10 +8,17 @@ import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import Button from "../Button";
 import { api } from "../../api";
+import useLoginModal from "../../Hooks/useLoginModal";
+import { AuthContext } from "../authContext";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const RegisterModal = () => {
+const LoginModal = () => {
+    const navigate = useNavigate()
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal()
   const [isLoading, setIsLoading] = useState(false);
+  const { setLoggedInUser } = useContext(AuthContext);
 
   const {
     register,
@@ -19,32 +26,28 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    await api.post("/signup", data)
+   const response = await api.post("/login", data)
     setIsLoading(true);
-    console.log("registered")
+    const token = response.data.token;
+    document.cookie = `Bearer=${token}; path=/;`;
+    setLoggedInUser(token);
+    loginModal.onClose()
+    navigate("/")
+    toast.success("Logged in")
   };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to airbnb" subtitle="Create an account!" />
+      <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
         id="email"
         label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="name"
-        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -86,10 +89,10 @@ const RegisterModal = () => {
     <div>
       <Modal
         onSubmit={handleSubmit(onSubmit)}
-        title="Register"
+        title="Login"
         actionLabel="Continue"
-        onClose={registerModal.onClose}
-        isOpen={registerModal.isOpen}
+        onClose={loginModal.onClose}
+        isOpen={loginModal.isOpen}
         disabled={isLoading}
         body={bodyContent}
         footer={footerContent}
@@ -98,4 +101,4 @@ const RegisterModal = () => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

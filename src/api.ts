@@ -7,7 +7,6 @@ const apiURLs = {
 const api = axios.create({ baseURL: apiURLs["development"] });
 
 api.interceptors.request.use((config) => {
-  // const loggedInUserJSON = localStorage.getItem("loggedInUser");
   const token = document.cookie
     .split("; ")
     .find((row) => row.startsWith("Bearer="))
