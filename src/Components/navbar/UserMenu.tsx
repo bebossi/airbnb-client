@@ -1,19 +1,18 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "../../Hooks/useRegisterModal";
 import useLoginModal from "../../Hooks/useLoginModal";
-import { User } from "../../interfaces/UserInterface";
+import { AuthContext } from "../authContext";
 
-interface UserMenuProps {
-  currentUser?: User
-}
-
-const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
-  const registerModal = useRegisterModal()
-  const loginModal = useLoginModal()
+const UserMenu = () => {
+  const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
+  const { user, setUser } = useContext(AuthContext);
+
+  console.log(user);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -21,11 +20,10 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
 
   const handleLogout = () => {
     document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    currentUser === null
+    setUser(null);
   };
 
-  useEffect(() => {
-  }, [currentUser])
+  useEffect(() => {}, [user]);
 
   return (
     <div className="relative">
@@ -49,24 +47,21 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            {currentUser ? (
+            {user ? (
               <>
-              <MenuItem onClick={() => {}} label="My trips" />
-              <MenuItem onClick={() => {}} label="My favorites" />
-              <MenuItem onClick={() => {}} label="My reservations" />
-              <MenuItem onClick={() => {}} label="My properties" />
-              <hr/>
-              <MenuItem onClick={handleLogout} label="Logout" />
-
-            </>
-
+                <MenuItem onClick={() => {}} label="My trips" />
+                <MenuItem onClick={() => {}} label="My favorites" />
+                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem onClick={() => {}} label="My properties" />
+                <hr />
+                <MenuItem onClick={handleLogout} label="Logout" />
+              </>
             ) : (
               <>
-              <MenuItem onClick={loginModal.onOpen} label="Login" />
-              <MenuItem onClick={registerModal.onOpen} label="Sign Up" />
-            </>
+                <MenuItem onClick={loginModal.onOpen} label="Login" />
+                <MenuItem onClick={registerModal.onOpen} label="Sign Up" />
+              </>
             )}
-           
           </div>
         </div>
       )}
