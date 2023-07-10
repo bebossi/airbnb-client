@@ -39,7 +39,7 @@ const LoginModal = () => {
        const token = response.data.token;
        document.cookie = `Bearer=${token}; path=/;`;
        setLoggedInUser(token);
-       setUser(response.data)
+       setUser(response.data.user)
        loginModal.onClose()
        navigate("/")
        toast.success("Logged in")

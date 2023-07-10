@@ -10,9 +10,8 @@ const UserMenu = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, setLoggedInUser } = useContext(AuthContext);
 
-  console.log(user);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -21,6 +20,8 @@ const UserMenu = () => {
   const handleLogout = () => {
     document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
+    setLoggedInUser(null)
+    window.location.reload(); 
   };
 
   useEffect(() => {}, [user]);
