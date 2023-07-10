@@ -5,13 +5,15 @@ import MenuItem from "./MenuItem";
 import useRegisterModal from "../../Hooks/useRegisterModal";
 import useLoginModal from "../../Hooks/useLoginModal";
 import { AuthContext } from "../authContext";
+import useRentModal from "../../Hooks/useRentModal";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal()
+
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser, setLoggedInUser } = useContext(AuthContext);
-
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -20,9 +22,18 @@ const UserMenu = () => {
   const handleLogout = () => {
     document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
-    setLoggedInUser(null)
-    window.location.reload(); 
+    setLoggedInUser(null);
+    window.location.reload();
   };
+
+  const onRent = useCallback(() => {
+    if (!user) {
+      return loginModal.onOpen();
+    }
+
+    rentModal.onOpen()
+
+  }, [user, loginModal, rentModal]);
 
   useEffect(() => {}, [user]);
 
@@ -30,7 +41,7 @@ const UserMenu = () => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onRent}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Airbnb your home
@@ -54,6 +65,8 @@ const UserMenu = () => {
                 <MenuItem onClick={() => {}} label="My favorites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
+                <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
+
                 <hr />
                 <MenuItem onClick={handleLogout} label="Logout" />
               </>

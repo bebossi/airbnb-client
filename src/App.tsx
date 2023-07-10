@@ -3,6 +3,7 @@ import RegisterModal from "./Components/modals/RegisterModal";
 import NavBar from "./Components/navbar/NavBar";
 import ToasterProvider from "./Providers/ToasterProvider";
 import {  AuthContextComponent } from "./Components/authContext";
+import Rentmodal from "./Components/modals/Rentmodal";
 
 const App =  () => {
 
@@ -11,6 +12,7 @@ const App =  () => {
       <AuthContextComponent>
         <body>
           <ToasterProvider />
+          <Rentmodal/>
           <LoginModal />
           <RegisterModal />
           <NavBar />
