@@ -50,14 +50,18 @@ const LinstingInfo: React.FC<ListingInfoProps> = ({
           <div>{bathroomCount} bathrooms</div>
         </div>
       </div>
-      <hr/>
+      <hr />
       {category && (
-        <ListingCategory icon={category.icon} label={category.label} description={category.description} />
+        <ListingCategory
+          icon={category.icon}
+          label={category.label}
+          description={category.description}
+        />
       )}
-      <hr/>
+      <hr />
       <div className="text-lg font-light text-neutral-500">{description}</div>
-      <hr/>
-      <Map center={coordinates}/>
+      <hr />
+      <Map center={coordinates} />
     </div>
   );
 };
