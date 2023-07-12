@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Container from "./Components/Container";
-import EmptyState from "./Components/EmptyState";
-import { Listing } from "./interfaces/UserInterface";
-import { api } from "./api";
-import ListingCard from "./Components/Listings/ListingsCard";
-import { useUserContext } from "./Components/currentUser";
+import Container from "../Components/Container";
+import EmptyState from "../Components/EmptyState";
+import { Listing } from "../interfaces/UserInterface";
+import { api } from "../api";
+import ListingCard from "../Components/Listings/ListingsCard";
+import { useUserContext } from "../Components/currentUser";
 
 const Home = () => {
 

@@ -21,7 +21,7 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
+      firstName: "",
       email: "",
       password: "",
     },
@@ -50,7 +50,7 @@ const RegisterModal = () => {
         required
       />
       <Input
-        id="name"
+        id="firstName"
         label="Name"
         disabled={isLoading}
         register={register}
