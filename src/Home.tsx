@@ -1,38 +1,37 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Container from "./Components/Container";
 import EmptyState from "./Components/EmptyState";
 import { Listing } from "./interfaces/UserInterface";
 import { api } from "./api";
 import ListingCard from "./Components/Listings/ListingsCard";
-import { AuthContext } from "./Components/authContext";
+import { useUserContext } from "./Components/currentUser";
 
 const Home = () => {
 
-  const { user } = useContext(AuthContext);
+const user = useUserContext()
   const [listings, setListings] = useState<Listing[] | null>()
 
   const currentUser = user
 
-  if (listings?.length === 0) {
-    return (
-      <div>
-        <EmptyState showReset />
-      </div>
-    );
-  }
   useEffect(() => {
   const fetchLitings = async () => {
     try{
       const response = await api.get("/listings")
       setListings(...[response.data])
-      console.log(response.data)
-
     } catch(err){
       console.error(err);
     }
   }
   fetchLitings()
 }, [])
+
+if (listings?.length === 0) {
+  return (
+    <div>
+      <EmptyState showReset />
+    </div>
+  );
+}
 
   return (
     <Container>

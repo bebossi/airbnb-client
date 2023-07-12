@@ -9,7 +9,7 @@ export interface User {
   password: string;
   createdAt: Date;
   updatedAt: Date;
-  favoriteIds: Array<string>;
+  favoriteIds: Array<number>;
 
   accounts: Account[];
   listings: Listing[];
