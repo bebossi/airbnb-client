@@ -6,8 +6,10 @@ import useRegisterModal from "../../Hooks/useRegisterModal";
 import useLoginModal from "../../Hooks/useLoginModal";
 import { AuthContext } from "../authContext";
 import useRentModal from "../../Hooks/useRentModal";
+import { useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
+  const navigate = useNavigate()
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModal = useRentModal()
@@ -61,7 +63,7 @@ const UserMenu = () => {
           <div className="flex flex-col cursor-pointer">
             {user ? (
               <>
-                <MenuItem onClick={() => {}} label="My trips" />
+                <MenuItem onClick={() => navigate("/trips")} label="My trips" />
                 <MenuItem onClick={() => {}} label="My favorites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />

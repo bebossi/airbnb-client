@@ -10,6 +10,7 @@ import { api } from "../../api";
 import toast from "react-hot-toast";
 import ListingReservation from "./ListingReservation";
 import { Range } from "react-date-range";
+import { useNavigate } from "react-router-dom";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -30,6 +31,7 @@ const ListingClient: React.FC<ListingCLientProps> = ({
   currentUser,
   reservations = [],
 }) => {
+  const navigate = useNavigate()
   const loginModal = useLoginModal();
 
   const disabledDates = useMemo(() => {
@@ -67,7 +69,7 @@ const ListingClient: React.FC<ListingCLientProps> = ({
 
       toast.success("Listing reserved");
       setDateRange(initialDateRange);
-      window.location.reload();
+    navigate("/trips")
       setIsloading(false);
     } catch (err) {
       console.error(err);

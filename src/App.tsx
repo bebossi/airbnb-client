@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import { UserContextProvider } from "./Components/currentUser";
 import ListingPage from "./Pages/ListingPage";
+import TripsPage from "./Pages/TripsPage";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/listing/:listingId" element={<ListingPage/>} />
+                <Route path="/trips" element={<TripsPage/>} />
               </Routes>
             </div>
           </div>

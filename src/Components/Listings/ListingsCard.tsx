@@ -9,9 +9,9 @@ import Button from "../Button";
 interface ListingsProps {
   data: Listing;
   reservation?: Reservation;
-  onAction?: (id: string) => void;
+  onAction?: (id: number) => void;
   disabled?: boolean;
-  actionId?: string;
+  actionId?: number;
   actionLabel?: string;
   currentUser?: User | null;
 }
@@ -21,7 +21,7 @@ const ListingCard: React.FC<ListingsProps> = ({
   reservation,
   onAction,
   disabled,
-  actionId = "",
+  actionId ,
   actionLabel,
   currentUser,
 }) => {
@@ -37,7 +37,7 @@ const ListingCard: React.FC<ListingsProps> = ({
         if (disabled) {
           return
         }
-        onAction?.(actionId)
+        onAction?.(actionId!)
 
       }, [onAction, actionId, disabled ])
 
