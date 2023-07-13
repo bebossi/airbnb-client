@@ -61,7 +61,7 @@ const ListingClient: React.FC<ListingCLientProps> = ({
       api.post("/reservation", {
         totalPrice,
         startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
+        endDate: dateRange.endDate, 
         listingId: listing?.id,
       });
 
@@ -91,6 +91,8 @@ const ListingClient: React.FC<ListingCLientProps> = ({
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
+
+ 
 
   return (
     <Container>

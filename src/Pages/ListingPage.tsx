@@ -8,27 +8,33 @@ import ListingClient from "../Components/Listings/Listingclient";
 
 const ListingPage = () => {
   const [listing, setListing] = useState<Listing>();
+  const [reservations, setReservations] = useState([])
   const params = useParams();
   const currentUser = useUserContext();
   console.log(currentUser);
 
   useEffect(() => {
-    try {
-      const fetchListing = async () => {
-        const response = await api.get(`/listing/${params.listingId}`);
-        setListing(response.data);
-      };
-      fetchListing();
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+    const fetchData = async () => {
+      try {
+        const listingResponse = await api.get(`/listing/${params.listingId}`);
+        setListing(listingResponse.data);
+
+        const reservationsResponse = await api.get(`/reservations/${params.listingId}`);
+        setReservations(reservationsResponse.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [params.listingId]);
 
   if (!listing) {
     return <EmptyState />;
   }
 
-  return <ListingClient listing={listing} currentUser={currentUser} />;
+
+  return <ListingClient reservations={reservations} listing={listing} currentUser={currentUser} />;
 };
 
 export default ListingPage;
