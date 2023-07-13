@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import EmptyState from "../Components/EmptyState";
 import { useUserContext } from "../Components/currentUser";
 import { api } from "../api";
-import TripsClient from "../Components/Reservations/TripsClient";
+import TripsClient from "../Components/Trips/TripsClient";
 
 const TripsPage = () => {
   const [reservations, setReservations] = useState([]);
