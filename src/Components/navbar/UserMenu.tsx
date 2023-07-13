@@ -64,7 +64,7 @@ const UserMenu = () => {
             {user ? (
               <>
                 <MenuItem onClick={() => navigate("/trips")} label="My trips" />
-                <MenuItem onClick={() => {}} label="My favorites" />
+                <MenuItem onClick={() => navigate("/favorites")} label="My favorites" />
                 <MenuItem onClick={() => navigate("/reservations")} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
                 <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />

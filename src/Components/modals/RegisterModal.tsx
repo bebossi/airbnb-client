@@ -9,6 +9,7 @@ import Input from "../Inputs/Input";
 import Button from "../Button";
 import { api } from "../../api";
 import useLoginModal from "../../Hooks/useLoginModal";
+import { toast } from "react-hot-toast";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal()
@@ -30,7 +31,9 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     await api.post("/signup", data)
     setIsLoading(true);
-    console.log("registered")
+    registerModal.onClose()
+    loginModal.onOpen()
+    toast.success("registered")
   };
 
   const toogle = useCallback(() => {

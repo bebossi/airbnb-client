@@ -10,6 +10,7 @@ import { UserContextProvider } from "./Components/currentUser";
 import ListingPage from "./Pages/ListingPage";
 import TripsPage from "./Pages/TripsPage";
 import ReservationsPages from "./Pages/ReservationsPages";
+import FavoritesPage from "./Pages/FavoritesPage";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path="/listing/:listingId" element={<ListingPage/>} />
                 <Route path="/trips" element={<TripsPage/>} />
                 <Route path="/reservations" element={<ReservationsPages/>} />
+                <Route path="/favorites" element={<FavoritesPage/>} />
 
               </Routes>
             </div>

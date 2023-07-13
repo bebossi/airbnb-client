@@ -11,10 +11,8 @@ import { api } from "../../api";
 import useLoginModal from "../../Hooks/useLoginModal";
 import { AuthContext } from "../authContext";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const LoginModal = () => {
-    const navigate = useNavigate()
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal()
   const [isLoading, setIsLoading] = useState(false);
@@ -40,10 +38,10 @@ const LoginModal = () => {
        document.cookie = `Bearer=${token}; path=/;`;
        setLoggedInUser(token);
        setUser(response.data.user)
-       loginModal.onClose()
-       navigate("/")
        toast.success("Logged in")
-    } catch(err){
+       loginModal.onClose()
+       window.location.reload();
+      } catch(err){
       console.log(err);
     }
   };
