@@ -3,7 +3,6 @@ import { User } from "../../interfaces/UserInterface";
 import useCountries from "../../Hooks/useConutries";
 import ListingCategory from "./ListingCategory";
 import { lazy } from "react";
-// import Map from "../Map";
 
 interface ListingInfoProps {
   user: User;

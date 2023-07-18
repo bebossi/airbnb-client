@@ -3,7 +3,6 @@ import useSearchModal from "../../Hooks/useSearchModal";
 import Modal from "./Modal";
 import { lazy, useCallback, useMemo, useState } from "react";
 import {  Range } from "react-date-range";
-// import Map from "../Map";
 import CountrySelect, { CountrySelectValue } from "../Inputs/CountrySelect";
 import qs from "query-string";
 import { formatISO } from "date-fns";

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { lazy, useMemo, useState } from "react";
 import useRentModal from "../../Hooks/useRentModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
@@ -6,7 +6,6 @@ import { categories } from "../navbar/Categories";
 import CategoryInput from "../Inputs/CategoryInput";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import CountrySelect from "../Inputs/CountrySelect";
-import Map from "../Map";
 import Counter from "../Inputs/Counter";
 import ImageUpload from "../Inputs/Imageupload";
 import Input from "../Inputs/Input";
@@ -23,6 +22,8 @@ enum STEPS {
 }
 
 const Rentmodal = () => {
+  const Map = lazy(() => import('../Map'));
+
   const rentModal = useRentModal();
 
   const [step, setStep] = useState(STEPS.CATEGORY);
