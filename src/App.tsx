@@ -12,6 +12,7 @@ import TripsPage from "./Pages/TripsPage";
 import ReservationsPages from "./Pages/ReservationsPages";
 import FavoritesPage from "./Pages/FavoritesPage";
 import PropertiesPage from "./Pages/PropertiesPage";
+import SearchModal from "./Components/modals/SearchModal";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <AuthContextComponent>
         <UserContextProvider>
           <div>
+            <SearchModal/>
             <ToasterProvider />
             <Rentmodal />
             <LoginModal />

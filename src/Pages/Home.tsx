@@ -1,29 +1,37 @@
 import { useEffect, useState } from "react";
 import Container from "../Components/Container";
 import EmptyState from "../Components/EmptyState";
-import { Listing } from "../interfaces/UserInterface";
+import {  Listing } from "../interfaces/UserInterface";
 import { api } from "../api";
 import ListingCard from "../Components/Listings/ListingsCard";
 import { useUserContext } from "../Components/currentUser";
+import { useLocation } from "react-router-dom";
+import qs from "query-string";
 
-const Home = () => {
+
+const Home =  () => {
 
 const user = useUserContext()
   const [listings, setListings] = useState<Listing[] | null>()
+  const location = useLocation();
+
 
   const currentUser = user
 
   useEffect(() => {
+    const searchParams = qs.parse(location.search);
+
   const fetchLitings = async () => {
     try{
-      const response = await api.get("/listings")
+      const queryString = qs.stringify(searchParams);
+      const response = await api.get(`/listingSearch?${queryString}`)
       setListings(...[response.data])
     } catch(err){
       console.error(err);
     }
   }
   fetchLitings()
-}, [])
+}, [location.search])
 
 if (listings?.length === 0) {
   return (
