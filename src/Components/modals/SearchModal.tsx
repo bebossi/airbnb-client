@@ -1,9 +1,9 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useSearchModal from "../../Hooks/useSearchModal";
 import Modal from "./Modal";
-import { useCallback, useMemo, useState } from "react";
+import { lazy, useCallback, useMemo, useState } from "react";
 import {  Range } from "react-date-range";
-import Map from "../Map";
+// import Map from "../Map";
 import CountrySelect, { CountrySelectValue } from "../Inputs/CountrySelect";
 import qs from "query-string";
 import { formatISO } from "date-fns";
@@ -17,6 +17,8 @@ enum STEPS {
   INFO = 2,
 }
 const SearchModal = () => {
+  const Map = lazy(() => import('../Map'));
+
   const searchModal = useSearchModal();
   const navigate = useNavigate();
   const params = useSearchParams();
