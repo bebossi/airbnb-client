@@ -1,4 +1,4 @@
-import { lazy, useMemo, useState } from "react";
+import { Suspense, lazy, useMemo, useState } from "react";
 import useRentModal from "../../Hooks/useRentModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
@@ -22,7 +22,7 @@ enum STEPS {
 }
 
 const Rentmodal = () => {
-  const Map = lazy(() => import('../Map'));
+  const Map = lazy(() => import("../Map"));
 
   const rentModal = useRentModal();
 
@@ -57,7 +57,6 @@ const Rentmodal = () => {
   const bathroomCount = watch("bathroomCount");
   const image = watch("image");
 
-
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldValidate: true,
@@ -75,18 +74,18 @@ const Rentmodal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.PRICE ){
-        return onNext();
+    if (step !== STEPS.PRICE) {
+      return onNext();
     }
-    setIsLoading(true)
+    setIsLoading(true);
 
-     api.post("/create", data)
+    api.post("/create", data);
 
-     toast.success("Listing created")
-     setStep(STEPS.CATEGORY)
-     reset()
-     rentModal.onClose()
-}
+    toast.success("Listing created");
+    setStep(STEPS.CATEGORY);
+    reset();
+    rentModal.onClose();
+  };
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE) {
@@ -137,7 +136,9 @@ const Rentmodal = () => {
           onChange={(value) => setCustomValue("location", value)}
         />
         {step === STEPS.LOCATION && location && (
-          <Map center={location?.latlng} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Map center={location?.latlng} />
+          </Suspense>
         )}
       </div>
     );
@@ -156,15 +157,15 @@ const Rentmodal = () => {
           value={guestCount}
           onChange={(value) => setCustomValue("guestCount", value)}
         />
-        <hr/>
-           <Counter
+        <hr />
+        <Counter
           title="Rooms"
           subtitle="How many rooms do you have?"
           value={roomCount}
           onChange={(value) => setCustomValue("roomCount", value)}
         />
-        <hr/>
-           <Counter
+        <hr />
+        <Counter
           title="Bathrooms"
           subtitle="How many bathrooms do you have?"
           value={bathroomCount}
@@ -174,33 +175,68 @@ const Rentmodal = () => {
     );
   }
 
-  if(step === STEPS.IMAGES){
+  if (step === STEPS.IMAGES) {
     bodyContent = (
-        <div className="flex felx-col gap-8">
-            <Heading title="Add a photo of your place" subtitle="Show guests what your place looks like" />
-            <ImageUpload value={image} onChange={(value) => setCustomValue("image", value)} />
-        </div>
-    )
+      <div className="flex felx-col gap-8">
+        <Heading
+          title="Add a photo of your place"
+          subtitle="Show guests what your place looks like"
+        />
+        <ImageUpload
+          value={image}
+          onChange={(value) => setCustomValue("image", value)}
+        />
+      </div>
+    );
   }
 
-  if(step === STEPS.DESCRIPTION){
+  if (step === STEPS.DESCRIPTION) {
     bodyContent = (
-        <div className="flex flex-col gap-8">
-            <Heading title="How would you discribe your place?" subtitle="Short and sweet works best!"/>
-            <Input id="title" label="Title" disabled={isLoading} register={register} errors={errors} required />
-            <hr/>
-            <Input id="description" label="Description" disabled={isLoading} register={register} errors={errors} required />
-        </div>
-    )
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How would you discribe your place?"
+          subtitle="Short and sweet works best!"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
   }
 
-  if(step === STEPS.PRICE){
+  if (step === STEPS.PRICE) {
     bodyContent = (
-        <div className="flex flex-col gap-8">
-            <Heading title="Now, set your price" subtitle="How much do you charge per night"/>
-            <Input id="price" label="Price" formatPrice type="number" disabled={isLoading} register={register} errors={errors} required />
-        </div>
-    )
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Now, set your price"
+          subtitle="How much do you charge per night"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
   }
 
   return (
