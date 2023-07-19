@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const apiURLs = {
   development: "http://localhost:1214",
-  production: "https://airbnnbcloneapi.onrender.com/",
+  production: "https://airbnnbcloneapi.onrender.com",
 };
 
 const api = axios.create({ baseURL: apiURLs["production"] });
