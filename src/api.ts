@@ -8,16 +8,14 @@ const apiURLs = {
 const api = axios.create({ baseURL: apiURLs["production"] });
 
 api.interceptors.request.use((config) => {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("Bearer="))
-    ?.split("=")[1];
+  const token = localStorage.getItem("token");
 
   if (token) {
-    (config as AxiosRequestConfig).headers = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`,
-    };
+    // (config as AxiosRequestConfig).headers = {
+    //   ...config.headers,
+    //   Authorization: `Bearer ${token}`,
+    // };
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
 
   return config;

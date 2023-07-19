@@ -35,8 +35,9 @@ const LoginModal = () => {
       const response = await api.post("/login", data)
        setIsLoading(true);
        const token = response.data.token;
-       document.cookie = `Bearer=${token}; path=/;`;
-       setLoggedInUser(token);
+      //  document.cookie = `Bearer=${token}; path=/;`;
+      localStorage.setItem("token", token)
+      setLoggedInUser(token);
        setUser(response.data.user)
        toast.success("Logged in")
        loginModal.onClose()
