@@ -25,9 +25,5 @@ export function UserContextProvider({
     }
   }, []);
 
-  return(
-    <UserContext.Provider value={user}>
-        {children}
-      </UserContext.Provider>
-  )
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 }

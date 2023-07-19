@@ -22,7 +22,7 @@ const UserMenu = () => {
   }, []);
 
   const handleLogout = () => {
-    document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    localStorage.removeItem("token");
     setUser(null);
     setLoggedInUser(null);
     window.location.reload();

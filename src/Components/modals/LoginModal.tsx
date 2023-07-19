@@ -1,6 +1,6 @@
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import {  useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "../../Hooks/useRegisterModal";
 import Modal from "./Modal";
@@ -14,9 +14,9 @@ import { toast } from "react-hot-toast";
 
 const LoginModal = () => {
   const registerModal = useRegisterModal();
-  const loginModal = useLoginModal()
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser ,setLoggedInUser } = useContext(AuthContext);
+  const { setUser, setLoggedInUser } = useContext(AuthContext);
 
   const {
     register,
@@ -30,27 +30,25 @@ const LoginModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    try{
-
-      const response = await api.post("/login", data)
-       setIsLoading(true);
-       const token = response.data.token;
-      //  document.cookie = `Bearer=${token}; path=/;`;
-      localStorage.setItem("token", token)
+    try {
+      const response = await api.post("/login", data);
+      setIsLoading(true);
+      const token = response.data.token;
+      localStorage.setItem("token", token);
       setLoggedInUser(token);
-       setUser(response.data.user)
-       toast.success("Logged in")
-       loginModal.onClose()
-       window.location.reload();
-      } catch(err){
+      setUser(response.data.user);
+      toast.success("Logged in");
+      loginModal.onClose();
+      window.location.reload();
+    } catch (err) {
       console.log(err);
     }
   };
 
   const toogle = useCallback(() => {
-    loginModal.onClose()
-    registerModal.onOpen()
-  }, [loginModal, registerModal])
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -77,23 +75,32 @@ const LoginModal = () => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-        <hr/>
-        <Button outline label="Continue with google" icon={FcGoogle} onClick={() => {}}  />
-        <Button outline label="Continue with gitHub" icon={AiFillGithub} onClick={() => {}}  />
-    <div className="text-neutral-500 text-center mt-4 font-light">
-    <div className="justify-center flex flex-row items-center gap-2">
-        <div>
-
-       First time using our app?
+      <hr />
+      <Button
+        outline
+        label="Continue with google"
+        icon={FcGoogle}
+        onClick={() => {}}
+      />
+      <Button
+        outline
+        label="Continue with gitHub"
+        icon={AiFillGithub}
+        onClick={() => {}}
+      />
+      <div className="text-neutral-500 text-center mt-4 font-light">
+        <div className="justify-center flex flex-row items-center gap-2">
+          <div>First time using our app?</div>
+          <div
+            onClick={toogle}
+            className="text-neutral-900 cursor-pointer hover:underline"
+          >
+            Create an account
+          </div>
         </div>
-        <div onClick={toogle} className="text-neutral-900 cursor-pointer hover:underline"> 
-
-       Create an account
-        </div>
+      </div>
     </div>
-    </div>
-    </div>
-  )
+  );
 
   return (
     <div>

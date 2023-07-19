@@ -8,16 +8,13 @@ function AuthContextComponent(props: any) {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    const storedToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("Bearer="))
-      ?.split("=")[1];
+    const storedToken = localStorage.getItem("token");
 
     if (storedToken) {
       try {
         const decodedUser: any = jwtDecode(storedToken);
-        setUser(decodedUser);
         setLoggedInUser(storedToken);
+        setUser(decodedUser);
       } catch (err) {
         console.log(err);
       }
