@@ -5,7 +5,7 @@ const apiURLs = {
   production: "https://airbnnbcloneapi.onrender.com",
 };
 
-const api = axios.create({ baseURL: apiURLs["development"] });
+const api = axios.create({ baseURL: apiURLs["production"] });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
