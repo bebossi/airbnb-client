@@ -22,7 +22,7 @@ const Home = () => {
       try {
         const queryString = qs.stringify(searchParams);
         const response = await api.get(`/listingSearch?${queryString}`);
-        setListings(...[response.data]);
+        setListings(response.data);
       } catch (err) {
         console.error(err);
       }
