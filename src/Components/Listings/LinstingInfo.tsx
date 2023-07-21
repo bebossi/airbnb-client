@@ -64,7 +64,7 @@ const LinstingInfo: React.FC<ListingInfoProps> = ({
       <div className="text-lg font-light text-neutral-500">{description}</div>
       <hr />
       <Suspense fallback={<div>Loading...</div>}>
-        <Map center={coordinates} />
+        <Map key={locationValue} center={coordinates} />
       </Suspense>
     </div>
   );

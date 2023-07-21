@@ -117,7 +117,7 @@ const SearchModal = () => {
       <hr />
 
       <Suspense fallback={<div>Loading...</div>}>
-        <Map center={location?.latlng} />
+        <Map key={location?.value} center={location?.latlng} />
       </Suspense>
     </div>
   );
