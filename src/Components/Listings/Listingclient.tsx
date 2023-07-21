@@ -94,6 +94,7 @@ const ListingClient: React.FC<ListingCLientProps> = ({
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
 
+ 
 
   return (
     <Container>

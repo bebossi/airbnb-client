@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Listing } from "../interfaces/UserInterface";
+import { Listing, Reservation } from "../interfaces/UserInterface";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
 import EmptyState from "../Components/EmptyState";
@@ -8,7 +8,7 @@ import ListingClient from "../Components/Listings/Listingclient";
 
 const ListingPage = () => {
   const [listing, setListing] = useState<Listing>();
-  const [reservations, setReservations] = useState([])
+  const [reservations, setReservations] = useState<Reservation[]>([])
   const params = useParams();
   const currentUser = useUserContext();
   console.log(currentUser);
@@ -23,6 +23,7 @@ const ListingPage = () => {
         setReservations(reservationsResponse.data);
       } catch (err) {
         console.log(err);
+        throw new Error()
       }
     };
 

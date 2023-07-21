@@ -2,7 +2,8 @@ import { IconType } from "react-icons";
 import { User } from "../../interfaces/UserInterface";
 import useCountries from "../../Hooks/useConutries";
 import ListingCategory from "./ListingCategory";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
+import Map from "../Map";
 
 interface ListingInfoProps {
   user: User;
@@ -29,7 +30,7 @@ const LinstingInfo: React.FC<ListingInfoProps> = ({
   category,
   locationValue,
 }) => {
-  const Map = lazy(() => import("../Map"));
+  // const Map = lazy(() => import("../Map"));
 
   const { getByValue } = useCountries();
   const coordinates = getByValue(locationValue)?.latlng;

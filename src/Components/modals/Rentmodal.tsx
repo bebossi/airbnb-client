@@ -137,7 +137,7 @@ const Rentmodal = () => {
         />
         {step === STEPS.LOCATION && location && (
           <Suspense fallback={<div>Loading...</div>}>
-            <Map key={location.latlng} center={location?.latlng} />
+            <Map  center={location?.latlng} />
           </Suspense>
         )}
       </div>
